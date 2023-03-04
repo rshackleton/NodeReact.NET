@@ -1,9 +1,7 @@
-﻿import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactDOMServer from 'react-dom/server';
+﻿import preact from 'preact';
+import render from 'preact-render-to-string';
 
-global.React = React;
-global.ReactDOM = ReactDOM;
-global.ReactDOMServer = ReactDOMServer;
+global.preact = preact;
+global.preactRenderToString = render;
 
 require('expose-loader?exposes=Components!./components/index');

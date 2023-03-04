@@ -1,9 +1,9 @@
 import HelloWorld from "./HelloWorld";
-import RootComponent from "./RootComponent";
+import LoremIpsum from "./LoremIpsum";
 
 export const components = {
   HelloWorld,
-  RootComponent,
+  LoremIpsum,
 };
 
 try {

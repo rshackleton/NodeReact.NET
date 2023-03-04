@@ -1,7 +1,5 @@
 ﻿// @ts-check
 
-import React from "react";
-
 /**
  * @param {object} props
  * @param {string} props.name
