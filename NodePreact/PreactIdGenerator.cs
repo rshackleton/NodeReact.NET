@@ -22,7 +22,7 @@ namespace NodePreact
     /// <summary>
 	/// React ID generator.
 	/// </summary>
-	public sealed class ReactIdGenerator : IReactIdGenerator
+	public sealed class PreactIdGenerator : IReactIdGenerator
     {
 		private static readonly string _encode32Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
 

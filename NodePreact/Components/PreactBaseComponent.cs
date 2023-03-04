@@ -11,15 +11,15 @@ using NodePreact.Utils;
 
 namespace NodePreact.Components
 {
-    public abstract class ReactBaseComponent : IDisposable
+    public abstract class PreactBaseComponent : IDisposable
     {
         protected readonly INodeInvocationService _nodeInvocationService;
-        protected readonly ReactConfiguration _configuration;
+        protected readonly PreactConfiguration _configuration;
         private readonly IReactIdGenerator _reactIdGenerator;
         private readonly IComponentNameInvalidator _componentNameInvalidator;
 
-        protected ReactBaseComponent(
-            ReactConfiguration configuration,
+        protected PreactBaseComponent(
+            PreactConfiguration configuration,
             IReactIdGenerator reactIdGenerator,
             INodeInvocationService nodeInvocationService,
             IComponentNameInvalidator componentNameInvalidator)

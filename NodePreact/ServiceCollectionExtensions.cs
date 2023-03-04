@@ -13,15 +13,15 @@ namespace NodePreact
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddNodePreact(this IServiceCollection services,
-            Action<ReactConfiguration> configuration = null)
+            Action<PreactConfiguration> configuration = null)
         {
-            var config = new ReactConfiguration();
+            var config = new PreactConfiguration();
             configuration?.Invoke(config);
 
             services.AddSingleton(config);
 
             services.AddSingleton<IComponentNameInvalidator, ComponentNameInvalidator>();
-            services.AddSingleton<IReactIdGenerator, ReactIdGenerator>();
+            services.AddSingleton<IReactIdGenerator, PreactIdGenerator>();
             services.AddSingleton<INodeInvocationService, NodeInvocationService>();
             
             services.AddNodeJS();
@@ -49,10 +49,10 @@ namespace NodePreact
                 typeof(NodePreactJeringNodeJsonService),
                 ServiceLifetime.Singleton));
 
-            services.AddScoped<IReactScopedContext, ReactScopedContext>();
+            services.AddScoped<IReactScopedContext, PreactScopedContext>();
 
-            services.AddTransient<ReactComponent>();
-            services.AddTransient<ReactRouterComponent>();
+            services.AddTransient<PreactComponent>();
+            services.AddTransient<PreactRouterComponent>();
 
             return services;
         }

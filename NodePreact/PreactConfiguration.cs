@@ -12,9 +12,9 @@ namespace NodePreact
     /// <summary>
     /// NodePreact configuration.
     /// </summary>
-    public class ReactConfiguration
+    public class PreactConfiguration
     {
-        public ReactConfiguration()
+        public PreactConfiguration()
         {
             ConfigureSystemTextJsonPropsSerializer(_ => {});
         }
@@ -26,7 +26,7 @@ namespace NodePreact
 
         internal IPropsSerializer PropsSerializer { get; set; }
 
-        public ReactConfiguration AddScriptWithoutTransform(string script)
+        public PreactConfiguration AddScriptWithoutTransform(string script)
         {
             ScriptFilesWithoutTransform.Add(script);
             return this;

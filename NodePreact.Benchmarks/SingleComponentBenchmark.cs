@@ -15,7 +15,7 @@ namespace NodePreact.Benchmarks
             {
                 var reactContext = scope.ServiceProvider.GetRequiredService<NodePreact.IReactScopedContext>();
 
-                var component = reactContext.CreateComponent<NodePreact.Components.ReactRouterComponent>("__desktopComponents.App");
+                var component = reactContext.CreateComponent<NodePreact.Components.PreactRouterComponent>("__desktopComponents.App");
                 component.Props = _testData;
                 component.ServerOnly = true;
                 component.Location = "/movie/246436/";
@@ -33,7 +33,7 @@ namespace NodePreact.Benchmarks
             {
                 var reactContext = scope.ServiceProvider.GetRequiredService<NodePreact.IReactScopedContext>();
 
-                var component = reactContext.CreateComponent<NodePreact.Components.ReactComponent>("__components.MovieAboutPage");
+                var component = reactContext.CreateComponent<NodePreact.Components.PreactComponent>("__components.MovieAboutPage");
                 component.Props = _testData;
                 component.ServerOnly = true;
 

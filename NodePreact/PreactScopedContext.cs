@@ -8,23 +8,23 @@ namespace NodePreact
 {
     public interface IReactScopedContext
     {
-        T CreateComponent<T>(string componentName) where T: ReactBaseComponent;
+        T CreateComponent<T>(string componentName) where T: PreactBaseComponent;
 
         void GetInitJavaScript(TextWriter writer);
     }
 
-    public sealed class ReactScopedContext : IReactScopedContext
+    public sealed class PreactScopedContext : IReactScopedContext
     {
-        private readonly List<ReactBaseComponent> _components = new List<ReactBaseComponent>();
+        private readonly List<PreactBaseComponent> _components = new List<PreactBaseComponent>();
 
         private readonly IServiceProvider _serviceProvider;
 
-        public ReactScopedContext(IServiceProvider serviceProvider)
+        public PreactScopedContext(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
 
-        public T CreateComponent<T>(string componentName) where T: ReactBaseComponent
+        public T CreateComponent<T>(string componentName) where T: PreactBaseComponent
         {
             var component = _serviceProvider.GetRequiredService<T>();
 

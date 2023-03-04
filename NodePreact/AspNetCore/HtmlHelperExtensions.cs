@@ -27,16 +27,16 @@ namespace NodePreact.AspNetCore
             string containerClass = null,
             Action<HttpResponse, RoutingContext> contextHandler = null,
             bool bootstrapInPlace = false,
-            ReactBaseComponent.BootstrapScriptContent bootstrapScriptContentProvider = null)
+            PreactBaseComponent.BootstrapScriptContent bootstrapScriptContentProvider = null)
         {
             var response = htmlHelper.ViewContext.HttpContext.Response;
             var request = htmlHelper.ViewContext.HttpContext.Request;
             path = path ?? request.Path.ToString() + request.QueryString;
 
             var scopedContext = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<IReactScopedContext>();
-            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<ReactConfiguration>();
+            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<PreactConfiguration>();
 
-            var reactComponent = scopedContext.CreateComponent<ReactRouterComponent>(componentName: componentName);
+            var reactComponent = scopedContext.CreateComponent<PreactRouterComponent>(componentName: componentName);
 
             reactComponent.Props = props;
             reactComponent.ContainerId = containerId;
@@ -124,12 +124,12 @@ namespace NodePreact.AspNetCore
             string containerClass = null,
             Action<Exception, string, string> exceptionHandler = null,
             bool bootstrapInPlace = false,
-            ReactBaseComponent.BootstrapScriptContent bootstrapScriptContentProvider = null)
+            PreactBaseComponent.BootstrapScriptContent bootstrapScriptContentProvider = null)
         {
             var scopedContext = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<IReactScopedContext>();
-            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<ReactConfiguration>();
+            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<PreactConfiguration>();
 
-            var reactComponent = scopedContext.CreateComponent<ReactComponent>(componentName: componentName);
+            var reactComponent = scopedContext.CreateComponent<PreactComponent>(componentName: componentName);
 
             reactComponent.Props = props;
             reactComponent.ContainerId = containerId;
@@ -163,7 +163,7 @@ namespace NodePreact.AspNetCore
         public static IHtmlContent ReactInitJavaScript(this IHtmlHelper htmlHelper, bool clientOnly = false, bool delayedLambda = false)
         {
             var scopedContext = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<IReactScopedContext>();
-            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<ReactConfiguration>();
+            var config = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<PreactConfiguration>();
 
             return new ActionHtmlString(writer => WriteScriptTag(writer, bodyWriter => scopedContext.GetInitJavaScript(bodyWriter), config.ScriptNonceProvider, delayedLambda));
         }

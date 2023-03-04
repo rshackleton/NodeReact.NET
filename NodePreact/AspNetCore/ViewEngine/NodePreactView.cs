@@ -29,7 +29,7 @@ public class NodePreactView : IView
 
         var scopedContext = httpContext.RequestServices.GetRequiredService<IReactScopedContext>();
 
-        var reactComponent = scopedContext.CreateComponent<ReactComponent>(componentName: options.ComponentName);
+        var reactComponent = scopedContext.CreateComponent<PreactComponent>(componentName: options.ComponentName);
         reactComponent.Props = context.ViewData.Model;
 
         var routingContext = await reactComponent.Render(options);

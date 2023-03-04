@@ -1,39 +1,38 @@
-﻿using System;
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
 using NodePreact.AspNetCore.ViewEngine;
 using NodePreact.Utils;
 
 namespace NodePreact.Components
 {
-    public sealed class ReactRouterComponent : ReactBaseComponent
+    /// <summary>
+    /// Represents a React JavaScript component.
+    /// </summary>
+    public sealed class PreactComponent : PreactBaseComponent
     {
-        public ReactRouterComponent(
-            ReactConfiguration configuration,
+        public PreactComponent(
+            PreactConfiguration configuration,
             IReactIdGenerator reactIdGenerator,
-            INodeInvocationService _nodeInvocationService,
+            INodeInvocationService nodeInvocationService,
             IComponentNameInvalidator componentNameInvalidator) : base(
             configuration,
             reactIdGenerator,
-            _nodeInvocationService,
+            nodeInvocationService,
             componentNameInvalidator)
         {
         }
 
-        public string Location { get; set; }
-        
-        public async Task<RoutingContext> RenderRouterWithContext()
+        public async Task RenderHtml()
         {
             if (ClientOnly)
             {
-                return null;
+                return;
             }
 
             try
             {
                 var routingContext = await Render(new RenderOptions
                 {
-                    Location = Location,
                     DisableStreaming = true,
                     DisableBootstrapPropsInPlace = true,
                     BootstrapScriptContent = null,
@@ -44,15 +43,11 @@ namespace NodePreact.Components
 
                 OutputHtml = new PooledStream();
                 await routingContext.CopyToStream(OutputHtml.Stream);
-
-                return routingContext;
             }
             catch (Exception ex)
             {
                 ExceptionHandler(ex, ComponentName, ContainerId);
             }
-
-            return null;
         }
     }
 }

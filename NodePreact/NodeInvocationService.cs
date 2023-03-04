@@ -26,7 +26,7 @@ namespace NodePreact
 
         public NodeInvocationService(
             INodeJSService nodeJsService, 
-            ReactConfiguration configuration, 
+            PreactConfiguration configuration, 
             IEmbeddedResourcesService embeddedResourcesService, 
             IOptions<NodeJSProcessOptions> nodeJsProcessOptions, 
             IServiceScopeFactory serviceScopeFactory)
