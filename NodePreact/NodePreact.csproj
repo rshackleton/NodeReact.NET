@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+
+        <Description>Library to render Preact library components on the server-side with C# as well as on the client.</Description>
+        <PackageTags>preact, preactjs, nodejs</PackageTags>
+        <Authors>Daniil Sokolyuk</Authors>
+
+        <VersionPrefix>2.0.0</VersionPrefix>
+
+        <PackageProjectUrl>https://github.com/rshackleton/NodePreact.NET</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rshackleton/NodePreact.NET</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+        <PackageReference Include="Jering.Javascript.NodeJS" Version="7.0.0-beta.3" />
+
+        <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+
+        <PackageReference Include="Yarn.MSBuild" Version="1.22.19" PrivateAssets="all" ExcludeAssets="Runtime">
+            <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <BundleName>bundle.js</BundleName>
+        <!-- Exclude Javascript\bin and Javascript\node_modules from project - https://github.com/dotnet/cli/issues/7525 -->
+        <DefaultItemExcludes>Javascript\bin\**;Javascript\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <JavascriptInputs Include="Javascript\**" Exclude="$(DefaultItemExcludes)" />
+        <JavascriptOutputs Include="Javascript\bin\$(Configuration)\$(BundleName)" />
+        <!-- If any file in JavascriptInputs has changed, fast up-to-date check must indicate that a rebuild is required - https://github.com/dotnet/project-system/pull/2241 -->
+        <UpToDateCheckInput Include="@(JavascriptInputs)" />
+        <EmbeddedResource Include="@(JavascriptOutputs)" LogicalName="$(BundleName)" />
+    </ItemGroup>
+
+    <Target Name="JavascriptBuild" BeforeTargets="DispatchToInnerBuilds;PreBuildEvent" Inputs="@(JavascriptInputs)" Outputs="@(JavascriptOutputs)">
+        <Yarn WorkingDirectory=".\Javascript" Command="run build --env mode=$(Configuration) --env entry=$(BundleName)" />
+    </Target>
+
+</Project>
