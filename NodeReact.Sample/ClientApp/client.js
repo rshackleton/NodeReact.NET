@@ -1,8 +1,8 @@
-﻿import preact from 'preact';
-import render from 'preact-render-to-string';
+﻿import "preact/debug";
+
+import { h, hydrate, render } from 'preact';
 import { components } from './components';
 
-window.preact = preact;
-window.preactRenderToString = render;
+window.preact = { h, hydrate, render };
 
 window.Components = components;

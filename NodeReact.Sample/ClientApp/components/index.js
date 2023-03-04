@@ -1,11 +1,15 @@
+import Counter from "./Counter";
+import CounterWithSignals from "./CounterWithSignals";
 import HelloWorld from "./HelloWorld";
 import LoremIpsum from "./LoremIpsum";
 
 export const components = {
-  HelloWorld,
-  LoremIpsum,
+    Counter,
+    CounterWithSignals,
+    HelloWorld,
+    LoremIpsum,
 };
 
 try {
-  module.exports = components;
-} catch {}
+    module.exports = components;
+} catch { }

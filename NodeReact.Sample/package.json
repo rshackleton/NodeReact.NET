@@ -1,5 +1,5 @@
 {
-  "name": "React",
+  "name": "Preact",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production"
@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime-corejs3": "7.20.13",
+    "@preact/signals": "1.1.3",
     "core-js": "3.27.2",
     "preact": "10.13.0",
     "preact-render-to-string": "5.2.6",

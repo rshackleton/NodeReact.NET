@@ -232,44 +232,36 @@ namespace NodeReact.Components
         {
             if (ClientOnly)
             {
-                //ReactDOM.createRoot(document.getElementById("container")).render(React.createElement(HelloWorld, { name: "John" }));
-                writer.Write("ReactDOM.createRoot(document.getElementById(\"");
-                writer.Write(ContainerId);
-                writer.Write("\")).render(React.createElement(");
-                writer.Write(ComponentName);
-                writer.Write(',');
-                if (BootstrapInPlace)
-                {
-                    writer.Write("window.__nrp['");
-                    writer.Write(ContainerId);
-                    writer.Write("']");
-                }
-                else
-                {
-                    WriterSerialziedProps(writer);
-                }
-
-                writer.Write("))");
+                // preact.render(preact.h(ComponentName, Props), document.getElementById("ContainerId"));
+                writer.Write("preact.render(");
             }
             else
             {
-                writer.Write("ReactDOM.hydrateRoot(document.getElementById(\"");
-                writer.Write(ContainerId);
-                writer.Write("\"), React.createElement(");
-                writer.Write(ComponentName);
-                writer.Write(',');
-                if (BootstrapInPlace)
-                {
-                    writer.Write("window.__nrp['");
-                    writer.Write(ContainerId);
-                    writer.Write("']");
-                }
-                else
-                {
-                    WriterSerialziedProps(writer);
-                }
-                writer.Write("))");
+                // preact.hydrate(preact.h(ComponentName, Props), document.getElementById("ContainerId"));
+                writer.Write("preact.hydrate(");
             }
+
+            writer.Write("preact.h(");
+            writer.Write(ComponentName);
+            writer.Write(',');
+
+            if (BootstrapInPlace)
+            {
+                writer.Write("window.__nrp['");
+                writer.Write(ContainerId);
+                writer.Write("']");
+            }
+            else
+            {
+                WriterSerialziedProps(writer);
+            }
+
+            writer.Write(")");
+            writer.Write(",");
+            writer.Write("document.getElementById(\"");
+            writer.Write(ContainerId);
+            writer.Write("\")");
+            writer.Write(");");
         }
 
         public virtual void Dispose()
